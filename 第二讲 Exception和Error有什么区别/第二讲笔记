@@ -1,0 +1,19 @@
+对比 Exception 和 Error
+    他们都继承自Throwable类，java中只有继承自Throwable的类才能被抛出（throw）或者捕获（catch）。
+    Exception是程序运行中可以预料到的意外情况，如果出现应该被捕获，并作出处理。
+        Exception 又分为可检查（checked）异常和不检查（unchecked）异常。
+        可查异常，需要在源代码里捕获或者抛出。不检查异常属于运行时异常，通常是可以避免的逻辑错误。
+    Error是正常情况下不可能出现的，出现后可导致程序处于不可恢复。
+异常处理的两个基本原则
+    不要捕获类似 Exception 这样的通用异常。（让异常直观的体现错误原因。另外，不会捕获到不希望捕获的异常）
+    不要生吞异常。（异常得不到暴露，如果程序在后期出现了莫名其妙的错误，很难找到原因）
+错误日志输出：
+    如果你想要使用 e.printStackTrace(); 将错误堆栈信息输出，但是问题来了：这个信息会输出到哪里？不得而知（尤其是分布式系统）。
+    最好借助日志系统将异常信息统一保存。
+    日志输出，避免输出主机名、端口、ip、用户信息等等。
+try catch 性能：
+    try catch语句会带来额外的开销，所以不要用try包住一大段代码。
+    java没实例化一个Exception对象都要对栈进行快照。如果过于频繁，消耗的资源就不可忽略了。
+异常要早点暴露：
+    Objects. requireNonNull(filename);
+    InputStream in = new FileInputStream(filename);
