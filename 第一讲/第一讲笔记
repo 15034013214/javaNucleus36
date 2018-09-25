@@ -1,0 +1,18 @@
+谈谈你对 Java 平台的理解？
+    Java 本身是一种面向对象的语言，能够非常容易地获得跨平台能力，强大的垃圾收集器。Java 语言特性、基础类库、JVM 的一些基础概念和机制、
+    可以参考（../img/Java平台知识点.png）。另外：JVM是一个品台，可以运行所有的合格的字节码文件，例如Scala，Groovy，JRuby,JPython
+Java 是解释执行的吗？
+    不太准确！我们开发的 Java 的源代码，首先通过 Javac 编译成字节码，然后在运行时，通过Java虚拟机（JVM）内嵌的解释器将字节码转
+    换成最终的机器码。但是常见的 JVM，比如我们大多数情况使用的 Oracle JDK 提供的 Hotspot JVM，都提供了 JIT（Just-In-Time）编
+    译器，也就是通常所说的动态编译器，JIT 能够在运行时将热点代码编译成机器码，这种情况下部分热点代码就属于编译执行，而不是解释执
+    行了。JIT基于大量的调用之后对热点代码进行编译。
+虚拟机运行模式：
+    Oracle Hotspot JVM 有两种默认的JIT编译模式c1:client模式（运行1500次后，确定代码的热度）。c2:service模式（上万次调用确定热度）。
+    Java 虚拟机启动时，可以通过参数指定运行模式。
+    可以通过java -version 查看JVM运行的模式。（64位的JVM只支持service模式）
+    总之：字节码被JVM解释成为机器码后运行，JIT能够在运行时将热点代码编译成机器码。
+除了JIT编译模式外的新的编译模式：AOT
+    直接将字节码编译成机器代码，避免JIT预热产生的开销。JDK9引入了AOT实验版本，添加了jaotc工具。
+    Java 9 的AOT工具可以直接将class文件打成机器码文件。eg:jaotc --output libHelloWorld.so HelloWorld.class （需要依赖一些库）
+Java 的“编译期”
+    Java所说的的编译器是将.java文件编译成为了.class文件。而不是直接将.java文件编译成为机器码。C++的编译时直接便以为机器码。
